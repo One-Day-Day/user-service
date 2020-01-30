@@ -4,7 +4,7 @@ package com.lovecode.security.constants;
 public class SecurityConstants {
 
     /**
-     * 登录的地址
+     * 获取token地址
      */
     public static final String AUTH_LOGIN_URL = "/auth/token";
 
