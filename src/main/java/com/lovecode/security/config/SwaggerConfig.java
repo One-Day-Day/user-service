@@ -33,7 +33,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("github.javaguide.springsecurityjwtguide"))
+                .apis(RequestHandlerSelectors.basePackage("com.lovecode"))
                 .paths(PathSelectors.any())
                 .build()
                 .globalOperationParameters(pars);
