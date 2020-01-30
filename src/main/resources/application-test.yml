@@ -1,0 +1,21 @@
+## test 配置
+spring:
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: true
+  datasource:
+    platform: h2
+    url: jdbc:h2:mem:test_db;MODE=MySQL;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1
+    username: sa
+    password: sa
+    driver-class-name: org.h2.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    schema: classpath:h2/test/schema.sql
+    data: classpath:h2/test/test.sql
+    initialization-mode: ALWAYS
+    continue-on-error: true
+###############################################################################
+

@@ -1,0 +1,23 @@
+###############################################################################
+## dev 开发环境
+###############################################################################
+## 数据库设置
+spring:
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/db_dev?characterEncoding=utf8&useSSL=false
+    username: root
+    password: root
+    schema:
+      - classpath:mysql/dev/schema.sql
+      - classpath:mysql/schema/schema.sql
+    data:
+      - classpath:mysql/dev/data.sql
+    initialization-mode: NEVER
+    driver-class-name: com.mysql.jdbc.Driver
+  flyway:
+    baselineOnMigrate: false
+    cleanDisabled: true
+    validateOnMigrate: true
+    locations: ['classpath:/db/migration/dev']
+    schemas: ['db_dev']
+###############################################################################

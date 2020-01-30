@@ -1,0 +1,22 @@
+## 服务配置
+server:
+  port: 8081
+  tomcat:
+    uri-encoding: utf-8
+spring:
+  http:
+    encoding:
+      force: true
+      charset: UTF-8
+      enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    open-in-view: false
+  resources:
+    add-mappings: true
+  mvc:
+    throw-exception-if-no-handler-found: true
+  profiles:
+    active: test
