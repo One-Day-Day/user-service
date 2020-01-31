@@ -70,6 +70,8 @@ dependencies {
     runtime group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.10.7'
     runtime group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.10.7'
 
+    compile group: 'com.alibaba', name: 'fastjson', version: '1.2.62'
+
     runtimeOnly 'mysql:mysql-connector-java'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
