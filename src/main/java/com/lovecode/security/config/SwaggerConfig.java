@@ -40,7 +40,7 @@ public class SwaggerConfig {
     }
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Spring Security JWT Guide")
+                .title("Spring Security JWT")
                 .build();
     }
 }

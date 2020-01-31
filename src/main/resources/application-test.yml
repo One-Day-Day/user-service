@@ -13,8 +13,8 @@ spring:
     password: sa
     driver-class-name: org.h2.Driver
     type: com.zaxxer.hikari.HikariDataSource
-    schema: classpath:h2/test/schema.sql
-    data: classpath:h2/test/test.sql
+    schema: classpath:database/h2/schema.sql
+    data: classpath:database/h2/test.sql
     initialization-mode: ALWAYS
     continue-on-error: true
 ###############################################################################
