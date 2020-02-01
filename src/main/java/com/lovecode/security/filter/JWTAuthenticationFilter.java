@@ -2,8 +2,8 @@ package com.lovecode.security.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lovecode.security.constants.SecurityConstants;
-import com.lovecode.security.entity.JwtUserDto;
-import com.lovecode.security.entity.LoginUserDto;
+import com.lovecode.security.entity.JwtInfoDto;
+import com.lovecode.security.entity.LoginDto;
 import com.lovecode.security.utils.JwtTokenUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -44,10 +44,10 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         try {
             // 从输入流中获取到登录的信息
             ServletInputStream inputStream = request.getInputStream();
-            LoginUserDto loginUserDto = objectMapper.readValue(inputStream, LoginUserDto.class);
-            remember.set(loginUserDto.getRememberMe());
+            LoginDto loginDto = objectMapper.readValue(inputStream, LoginDto.class);
+            remember.set(loginDto.getRememberMe());
             UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(
-                    loginUserDto.getUsername(), loginUserDto.getPassword());
+                    loginDto.getUsername(), loginDto.getPassword());
             return authenticationManager.authenticate(authRequest);
         } catch (IOException e) {
             log.error("attemptAuthentication" + e);
@@ -64,13 +64,13 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             FilterChain chain,
                                             Authentication authentication) {
 
-        JwtUserDto jwtUserDto = (JwtUserDto) authentication.getPrincipal();
-        List<String> roles = jwtUserDto.getAuthorities()
+        JwtInfoDto jwtInfoDto = (JwtInfoDto) authentication.getPrincipal();
+        List<String> roles = jwtInfoDto.getAuthorities()
                 .stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
         // 创建 Token
-        String token = JwtTokenUtils.createToken(jwtUserDto.getUsername(), roles, remember.get());
+        String token = JwtTokenUtils.createToken(jwtInfoDto.getUsername(), roles, remember.get());
         // Http Response Header 中返回 Token
         response.setHeader(SecurityConstants.TOKEN_HEADER, token);
     }

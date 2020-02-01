@@ -7,20 +7,20 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 
 
-public class JwtUserDto implements UserDetails {
+public class JwtInfoDto implements UserDetails {
 
     private Integer id;
     private String username;
     private String password;
     private Collection<? extends GrantedAuthority> authorities;
 
-    public JwtUserDto() {
+    public JwtInfoDto() {
     }
 
     /**
      * 通过 user 对象创建jwtUser
      */
-    public JwtUserDto(User user) {
+    public JwtInfoDto(User user) {
         id = user.getId();
         username = user.getUsername();
         password = user.getPassword();

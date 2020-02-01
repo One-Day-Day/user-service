@@ -1,6 +1,6 @@
 package com.lovecode.system.controller;
 
-import com.lovecode.system.entity.RegisterUserDto;
+import com.lovecode.system.entity.RegisterDto;
 import com.lovecode.system.entity.User;
 import com.lovecode.system.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -35,8 +35,8 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity registerUser(@RequestBody RegisterUserDto registerUserDto) {
-        userService.saveUser(registerUserDto);
+    public ResponseEntity registerUser(@RequestBody RegisterDto registerDto) {
+        userService.saveUser(registerDto);
         return ResponseEntity.ok().build();
     }
 

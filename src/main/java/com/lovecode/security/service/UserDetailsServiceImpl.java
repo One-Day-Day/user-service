@@ -1,6 +1,6 @@
 package com.lovecode.security.service;
 
-import com.lovecode.security.entity.JwtUserDto;
+import com.lovecode.security.entity.JwtInfoDto;
 import com.lovecode.system.entity.User;
 import com.lovecode.system.exception.NotFoundException;
 import com.lovecode.system.service.UserService;
@@ -20,7 +20,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String name) throws NotFoundException {
         User user = userService.findUserByUserName(name);
-        return new JwtUserDto(user);
+        return new JwtInfoDto(user);
     }
 
 }

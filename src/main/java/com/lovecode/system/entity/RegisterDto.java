@@ -3,7 +3,7 @@ package com.lovecode.system.entity;
 import lombok.Data;
 
 @Data
-public class RegisterUserDto {
+public class RegisterDto {
 
     private String username;
     private String password;

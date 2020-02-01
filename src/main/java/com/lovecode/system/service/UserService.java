@@ -1,6 +1,6 @@
 package com.lovecode.system.service;
 
-import com.lovecode.system.entity.RegisterUserDto;
+import com.lovecode.system.entity.RegisterDto;
 import com.lovecode.system.entity.User;
 import com.lovecode.system.enums.UserStatus;
 import com.lovecode.system.exception.NotFoundException;
@@ -27,19 +27,19 @@ public class UserService {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-    public void saveUser(RegisterUserDto registerUserDto) {
-        Optional<User> optionalUser = userRepository.findByUsername(registerUserDto.getUsername());
+    public void saveUser(RegisterDto registerDto) {
+        Optional<User> optionalUser = userRepository.findByUsername(registerDto.getUsername());
 
         if (optionalUser.isPresent()) {
             throw new ConflictException("User name already exist! Please choose another user name.");
         }
 
         User user = new User();
-        String username = registerUserDto.getUsername();
+        String username = registerDto.getUsername();
         user.setUsername(username);
-        user.setPassword(bCryptPasswordEncoder.encode(registerUserDto.getPassword()));
-        user.setEmail(registerUserDto.getEmail());
-        user.setRole(registerUserDto.getRole().toUpperCase());
+        user.setPassword(bCryptPasswordEncoder.encode(registerDto.getPassword()));
+        user.setEmail(registerDto.getEmail());
+        user.setRole(registerDto.getRole().toUpperCase());
         user.setCreatedAt(Timestamp.from(Instant.now()));
         user.setCreatedBy(username);
         user.setStatus(UserStatus.ACTIVE);
