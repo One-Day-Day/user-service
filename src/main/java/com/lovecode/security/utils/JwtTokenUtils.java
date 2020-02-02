@@ -24,6 +24,7 @@ public class JwtTokenUtils {
     /**
      * 生成足够的安全随机密钥，以适合符合规范的签名
      */
+
     private static byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(SecurityConstants.JWT_SECRET_KEY);
     private static SecretKey secretKey = Keys.hmacShaKeyFor(apiKeySecretBytes);
 

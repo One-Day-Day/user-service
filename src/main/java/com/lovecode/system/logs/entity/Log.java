@@ -1,10 +1,10 @@
 package com.lovecode.system.logs.entity;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Timestamp;
 
 @Entity
-@Table(name = "log")
+@Table(name = "logs")
 public class Log {
 
     @Id
@@ -12,7 +12,7 @@ public class Log {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "operationName")
+    @Column(name = "operation_name")
     private String operationName;
 
     @Column(name = "request")
@@ -24,11 +24,11 @@ public class Log {
     @Column(name = "error")
     private Boolean error;
 
-    @Column(name = "takeTime")
-    private Long takeTime;
+    @Column(name = "take_time")
+    private long takeTime;
 
-    @Column(name = "createTime")
-    private Date createTime;
+    @Column(name = "create_time")
+    private Timestamp createTime;
 
     @Column(name = "stack")
     private String stack;
@@ -41,7 +41,6 @@ public class Log {
         this.request = request == null ? null : request.trim();
     }
 
-
     public void setResponse(String response) {
         this.response = response == null ? null : response.trim();
     }
@@ -50,11 +49,11 @@ public class Log {
         this.error = error;
     }
 
-    public void setTakeTime(Long takeTime) {
+    public void setTakeTime(long takeTime) {
         this.takeTime = takeTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(Timestamp createTime) {
         this.createTime = createTime;
     }
 

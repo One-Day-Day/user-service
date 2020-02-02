@@ -2,7 +2,11 @@ package com.lovecode.security.constants;
 
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
 
+@PropertySource(value = "classpath:secret/jwt_secret_key.yml")
+@Component
 public class SecurityConstants {
 
     /**
@@ -24,6 +28,10 @@ public class SecurityConstants {
     public static final long EXPIRATION_REMEMBER = 60 * 60 * 24 * 7L;
 
     @Value("${jwt_secret_key}")
+    private void setJwtSecretKey(String key) {
+        JWT_SECRET_KEY = key;
+    }
+
     public static String JWT_SECRET_KEY;
 
     public static final String TOKEN_HEADER = "Authorization";

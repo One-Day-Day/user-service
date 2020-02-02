@@ -2,6 +2,7 @@ package com.lovecode.system.controller;
 
 import com.lovecode.system.entity.RegisterDto;
 import com.lovecode.system.entity.User;
+import com.lovecode.system.logs.annotation.DebugLogAnnotation;
 import com.lovecode.system.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -21,6 +22,7 @@ public class UserController {
     }
 
     @GetMapping()
+    @DebugLogAnnotation(name="getAllUser",intoDb = true)
     @PreAuthorize("hasAnyRole('ROLE_DEV','ROLE_PM','ROLE_ADMIN')")
     public ResponseEntity<Page<User>> getAllUser(@RequestParam(value = "pageNum", defaultValue = "0") int pageNum, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
         Page<User> allUser = userService.getAllUser(pageNum, pageSize);
@@ -28,6 +30,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{username}")
+    @DebugLogAnnotation(name="deleteUserByUsername",intoDb = true)
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public ResponseEntity<User> deleteUserByUsername(@PathVariable String username) {
         userService.deleteUserByUserName(username);

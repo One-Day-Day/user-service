@@ -18,3 +18,18 @@ CREATE TABLE USER
 	last_login_time DATETIME COMMENT 'the time when the user login',
 	PRIMARY KEY (id)
 );
+
+DROP TABLE IF EXISTS `LOGS`;
+
+CREATE TABLE LOGS
+(
+	id INT(11) NOT NULL AUTO_INCREMENT COMMENT 'log_id',
+	operation_name VARCHAR(1024) COMMENT 'operationName',
+	request VARCHAR(1024) COMMENT 'request',
+	response VARCHAR(1024) COMMENT 'response',
+	error VARCHAR(1024) COMMENT 'error',
+	take_time BIGINT DEFAULT NULL COMMENT 'takeTime',
+	create_time DATETIME DEFAULT NULL COMMENT 'createTime',
+	stack VARCHAR(1024) COMMENT 'stack',
+	PRIMARY KEY (id)
+);

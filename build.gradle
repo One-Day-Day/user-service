@@ -17,15 +17,7 @@ sonarqube {
         property "sonar.working.directory", "build/reports/sonar"
 
         property "sonar.coverage.exclusions", [
-                'src/main/java/com/okta/sdk/resource/**',
-                'src/main/java/com/thoughtworks/gateway/constant/**',
-                'src/main/java/com/thoughtworks/gateway/model/**',
-                'src/main/java/com/thoughtworks/gateway/dto/**',
-                'src/main/java/com/thoughtworks/gateway/event/**',
-                'src/main/java/com/thoughtworks/gateway/listener/**',
-                'src/main/java/com/thoughtworks/gateway/feign/**',
-                'src/main/java/com/thoughtworks/gateway/schedule/**',
-                'src/main/java/com/thoughtworks/gateway/*.*'
+                'src/main/java/com/lovecode/security/**',
         ]
     }
 }
@@ -58,9 +50,9 @@ ext {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.cloud:spring-cloud-starter-config'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 //    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
     implementation 'org.springframework.cloud:spring-cloud-starter-security'
     compileOnly 'org.projectlombok:lombok'

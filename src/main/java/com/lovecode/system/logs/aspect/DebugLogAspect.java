@@ -11,8 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,12 +47,12 @@ public class DebugLogAspect {
         Object[] args = joinPoint.getArgs();
         if (args != null && args.length > 0) {
             for (Object arg : args) {
-                requestStr.append(arg.toString());
+                requestStr.append(arg.toString() + " ");
             }
         }
         threadInfo.put(REQUEST_PARAMS, requestStr.toString());
         threadLocal.set(threadInfo);
-        log.info("{}接口开始调用:requestData={}", debugLogAnnotation.name(), threadInfo.get(REQUEST_PARAMS));
+        log.info("{}接口开始调用 : requestData= {}", debugLogAnnotation.name(), threadInfo.get(REQUEST_PARAMS));
     }
 
     @AfterReturning(value = "debugLogPointcut()&& @annotation(debugLogAnnotation)", returning = "res")
@@ -63,7 +64,7 @@ public class DebugLogAspect {
                     JSON.toJSONString(res), takeTime);
         }
         threadLocal.remove();
-        log.info("{}接口结束调用:耗时={}ms,result={}", debugLogAnnotation.name(),
+        log.info("{}接口结束调用 : 耗时= {}ms,result = {}", debugLogAnnotation.name(),
                 takeTime, res);
     }
 
@@ -79,25 +80,26 @@ public class DebugLogAspect {
     }
 
 
-    public void insertResult(String operationName, String requestStr, String responseStr, long takeTime) {
+    private void insertResult(String operationName, String requestStr, String responseStr, long takeTime) {
         Log log = new Log();
-        log.setCreateTime(new Date());
+        log.setCreateTime(Timestamp.from(Instant.now()));
         log.setError(false);
         log.setOperationName(operationName);
-        log.setRequest(requestStr);
-        log.setResponse(responseStr);
+        log.setRequest(requestStr.length() > 255 ? requestStr.substring(0, 255) : requestStr);
+        log.setResponse(responseStr.length() > 255 ? responseStr.substring(0, 255) : responseStr);
         log.setTakeTime(takeTime);
         logRepository.save(log);
     }
 
 
-    public void insertError(String operationName, String requestStr, Throwable throwable) {
+    private void insertError(String operationName, String requestStr, Throwable throwable) {
         Log log = new Log();
-        log.setCreateTime(new Date());
+        log.setCreateTime(Timestamp.from(Instant.now()));
         log.setError(true);
         log.setOperationName(operationName);
-        log.setRequest(requestStr);
-        log.setStack(Arrays.toString(throwable.getStackTrace()));
+        log.setRequest(requestStr.length() > 255 ? requestStr.substring(0, 255) : requestStr);
+        String stack = Arrays.toString(throwable.getStackTrace());
+        log.setStack(stack.length() > 255 ? stack.substring(0, 255) : stack);
         logRepository.save(log);
     }
 }
