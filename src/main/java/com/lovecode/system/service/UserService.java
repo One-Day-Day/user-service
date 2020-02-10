@@ -2,17 +2,14 @@ package com.lovecode.system.service;
 
 import com.lovecode.system.entity.RegisterDto;
 import com.lovecode.system.entity.User;
-import com.lovecode.system.enums.UserStatus;
-import com.lovecode.system.exception.NotFoundException;
 import com.lovecode.system.exception.ConflictException;
+import com.lovecode.system.exception.NotFoundException;
 import com.lovecode.system.repository.UserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.util.Optional;
 
 
@@ -33,16 +30,9 @@ public class UserService {
         if (optionalUser.isPresent()) {
             throw new ConflictException("User name already exist! Please choose another user name.");
         }
-
         User user = new User();
-        String username = registerDto.getUsername();
-        user.setUsername(username);
-        user.setPassword(bCryptPasswordEncoder.encode(registerDto.getPassword()));
-        user.setEmail(registerDto.getEmail());
-        user.setRole(registerDto.getRole().toUpperCase());
-        user.setCreatedAt(Timestamp.from(Instant.now()));
-        user.setCreatedBy(username);
-        user.setStatus(UserStatus.ACTIVE);
+
+        user.from(registerDto, bCryptPasswordEncoder);
 
         userRepository.save(user);
     }

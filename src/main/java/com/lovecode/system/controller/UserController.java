@@ -38,6 +38,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
+    @DebugLogAnnotation(name="registerUser",intoDb = true)
     public ResponseEntity registerUser(@RequestBody RegisterDto registerDto) {
         userService.saveUser(registerDto);
         return ResponseEntity.ok().build();

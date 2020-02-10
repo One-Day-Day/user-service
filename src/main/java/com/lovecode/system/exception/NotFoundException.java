@@ -2,7 +2,7 @@ package com.lovecode.system.exception;
 
 public class NotFoundException extends RuntimeException {
     public NotFoundException() {
-        super("object not found");
+        super("This object not found");
     }
 
     public NotFoundException(String element) {
