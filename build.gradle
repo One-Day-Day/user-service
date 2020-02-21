@@ -1,3 +1,13 @@
+buildscript {
+    repositories {
+        maven {url "https://plugins.gradle.org/m2/"}
+    }
+    dependencies {
+        classpath("org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.6-rc1")
+    }
+}
+
+
 plugins {
     id 'org.springframework.boot' version '2.2.2.RELEASE'
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
@@ -5,6 +15,23 @@ plugins {
     id "org.sonarqube" version "2.7"
     id 'java'
 }
+apply plugin: "org.sonarqube"
+apply plugin: "jacoco"
+apply plugin: 'application'
+
+
+applicationDefaultJvmArgs = [
+        '-XX:MetaspaceSize=128m', //（元空间默认大小）
+        '-XX:MaxMetaspaceSize=128m',// （元空间最大大小）
+        '-Xms1024m', //（堆最大大小）
+        '-Xmx1024m', //（堆默认大小）
+        '-Xmn256m', //（新生代大小）
+        '-Xss256k', //（棧最大深度大小）
+        '-XX:SurvivorRatio=8', //（新生代分区比例 8:2）
+        '-XX:+UseConcMarkSweepGC',// （指定使用的垃圾收集器，这里使用CMS收集器）
+        '-XX:+PrintGCDetails',// （打印详细的GC日志）
+]
+
 
 sonarqube {
     properties {
@@ -12,7 +39,6 @@ sonarqube {
         property "sonar.sources", "src/main/java"
         property "sonar.tests", "src/test/java"
         property "sonar.java.coveragePlugin", "jacoco"
-//            property "sonar.jacoco.reportPath", "build/jacoco/jacocoTest.exec"
         property "sonar.sonar.binaries", "build/classes/main"
         property "sonar.working.directory", "build/reports/sonar"
 
