@@ -18,7 +18,9 @@ plugins {
 apply plugin: "org.sonarqube"
 apply plugin: "jacoco"
 apply plugin: 'application'
+
 mainClassName = "com.lovecode.UserManagementApplication"
+
 
 applicationDefaultJvmArgs = [
         '-XX:MetaspaceSize=128m', //（元空间默认大小）
